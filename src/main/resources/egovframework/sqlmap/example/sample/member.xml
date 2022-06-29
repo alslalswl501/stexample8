@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Sample">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+	<typeAlias alias="searchVO"
+		type="egovframework.example.sample.service.SampleDefaultVO" />
+	
+	<select id="selectList" resultClass="EgovMap">
+        <![CDATA[
+             SELECT 
+                *
+            FROM sttemplate
+            limit $firstindex$, $recordperpage$
+        ]]>
+    </select>
+     <select id="selectTotal" resultClass="EgovMap">
+        <![CDATA[
+            SELECT count(*) num
+            FROM sttemplate
+        ]]>
+    </select>
+    <insert id="replyProcess">
+		<![CDATA[
+			INSERT INTO reply2
+				( bno
+				  , replyid
+				  , replytext
+				  , date)
+			VALUES ( #bno#
+				  , #replyid#
+				  , #replyretext#
+				  , now())
+		]]>
+	</insert>
+	<select id="reply" resultClass="EgovMap">
+        <![CDATA[
+            SELECT *
+            FROM reply2
+            where bno=#bno#
+        ]]>
+	</select>
+    <insert id="insertProcess">
+		<![CDATA[
+			INSERT INTO sttemplate
+				( idx
+				  ,	name
+				  , title
+				  , content
+				  , date)
+			VALUES ( idx 
+					, #name#
+				  , #title#
+				  , #content#
+				  , now())
+		]]>
+	</insert>
+</sqlMap>
